@@ -1,6 +1,8 @@
 package DieRoller;
 
 import java.awt.*;
+import java.awt.event.*;
+import java.util.*;
 import javax.swing.*;
 
 public class TestDriver extends JFrame
@@ -60,7 +62,7 @@ public class TestDriver extends JFrame
 	{
 		// creating components
 		rollPanel = new JPanel();
-		rollOutput = new JTextArea();
+		rollOutput = new JTextArea("                        ");
 		rollButton = new JButton("Roll");
 		
 		// component properties
@@ -70,6 +72,52 @@ public class TestDriver extends JFrame
 		// adding components to panel
 		rollPanel.add(rollOutput, BorderLayout.CENTER);
 		rollPanel.add(rollButton, BorderLayout.SOUTH);
+		
+		// event handlers
+		rollButton.addActionListener(new RollButtonHandler());
 	} // buildRollPanel method end
+	
+	private class RollButtonHandler implements ActionListener // RollButtonHandler class start
+	{
+
+		@Override
+		public void actionPerformed(ActionEvent e) // actionPerformed method start
+		{
+			int roll = RollDice.roll(20);
+			rollOutput.setText("Attack Roll:\n");
+			rollOutput.append(String.format("%d + %d = %d\n", roll, toon.getBaseAttack() + toon.getAttackbonus(),
+					roll + toon.getBaseAttack() + toon.getAttackbonus()));
+			if (roll == 1)
+			{
+				rollOutput.append("Critical Miss!\nDamage: 0");
+			} // end if
+			else if (roll >= toon.getCritOn())
+			{
+				rollOutput.append("Possible Crit!\nConfirmation Roll:\n");
+				roll = RollDice.roll(20);
+				rollOutput.append(String.format("%d + %d = %d\n", roll, toon.getBaseAttack() + toon.getAttackbonus()
+						+ toon.getConfirmBonus(), roll + toon.getBaseAttack() + toon.getAttackbonus() +
+						toon.getConfirmBonus()));
+				if (roll == 1)
+				{
+					int damage = RollDice.roll(toon.getDamageDice()) + toon.getDamageBonus();
+					rollOutput.append("Crit attempt failed\n");
+					rollOutput.append("Damage: " + damage);
+				} // end if
+				else
+				{
+					int damage = RollDice.roll(toon.getDamageDice()) + toon.getDamageBonus();
+					rollOutput.append("Regular Damage: " + damage + "\n");
+					damage += RollDice.roll(toon.getDamageDice()) + toon.getDamageBonus();
+					rollOutput.append("Critical Damage: " + damage);
+				} // end else
+			} // end else if
+			else
+			{
+				int damage = RollDice.roll(toon.getDamageDice()) + toon.getDamageBonus();
+				rollOutput.append("Damage: " + damage);
+			} // end else
+		} // actionPerformed method end
+	} // RollButtonHandler class end
 
 } // class end
