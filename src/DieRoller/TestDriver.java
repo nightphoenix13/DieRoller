@@ -3,16 +3,21 @@ package DieRoller;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
+
 import javax.swing.*;
 
 public class TestDriver extends JFrame
 {
 	// GUI components
 	private JPanel charPanel,
-				   rollPanel;
+				   rollPanel,
+				   headerPanel;
 	private JLabel nameLabel;
 	private JTextArea rollOutput;
 	private JButton rollButton;
+	private JMenuBar menuBar;
+	private JMenu character;
+	private JMenuItem newChar;
 	
 	// test Character
 	private Character toon;
@@ -30,10 +35,13 @@ public class TestDriver extends JFrame
 		toon = new Character("Test Toon", 5, 4, 2, 6, 8, 19);
 		
 		// building panels
+		buildHeaderPanel();
 		buildCharPanel();
 		buildRollPanel();
 		
 		// adding panels to frame
+		setJMenuBar(menuBar);
+		add(headerPanel, BorderLayout.NORTH);
 		add(charPanel, BorderLayout.WEST);
 		add(rollPanel, BorderLayout.EAST);
 		
@@ -44,6 +52,33 @@ public class TestDriver extends JFrame
 	{
 		TestDriver td = new TestDriver();
 	} // main method end
+	
+	private void buildHeaderPanel() // buildHeaderPanel method start
+	{
+		// creating components
+		headerPanel = new JPanel();
+		menuBar = new JMenuBar();
+		character = new JMenu("Character");
+		newChar = new JMenuItem("New Character");
+		
+		// component properties
+		character.setMnemonic('C');
+		newChar.setMnemonic('N');
+		
+		// adding components to panel
+		menuBar.add(character);
+		character.add(newChar);
+		
+		// event handlers
+		newChar.addActionListener(new ActionListener() // anonymous inner class
+		{
+			@Override
+			public void actionPerformed(ActionEvent arg0)
+			{
+				createNewChar();
+			}
+		});
+	} // buildHeaderPanel method end
 	
 	private void buildCharPanel() // buildCharPanel method start
 	{
@@ -62,7 +97,7 @@ public class TestDriver extends JFrame
 	{
 		// creating components
 		rollPanel = new JPanel();
-		rollOutput = new JTextArea("                        ");
+		rollOutput = new JTextArea();
 		rollButton = new JButton("Roll");
 		
 		// component properties
@@ -76,6 +111,25 @@ public class TestDriver extends JFrame
 		// event handlers
 		rollButton.addActionListener(new RollButtonHandler());
 	} // buildRollPanel method end
+	
+	// createNewChar gets input from user to create new character
+	private void createNewChar() // createNewChar method start
+	{
+		String name = JOptionPane.showInputDialog("Enter the character's name:");
+		try
+		{
+			int attackBonus = Integer.parseInt(JOptionPane.showInputDialog("Enter the attack bonus:"));
+			int baseAttack = Integer.parseInt(JOptionPane.showInputDialog("Enter the base attack:"));
+			int confirmBonus = Integer.parseInt(JOptionPane.showInputDialog("Enter bonus to confirm critical attacks:"));
+			int damageDice = Integer.parseInt(JOptionPane.showInputDialog("Enter the damage di(c)e:"));
+			int damageBonus = Integer.parseInt(JOptionPane.showInputDialog("Enter the damage bonus:"));
+			int critOn = Integer.parseInt(JOptionPane.showInputDialog("Enter the lowest value in critical hit range:"));
+		} // end try
+		catch (NumberFormatException exception)
+		{
+			JOptionPane.showMessageDialog(null, exception);
+		} // end catch
+	} // createNewChar method end
 	
 	private class RollButtonHandler implements ActionListener // RollButtonHandler class start
 	{
