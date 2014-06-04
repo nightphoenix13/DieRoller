@@ -116,20 +116,153 @@ public class TestDriver extends JFrame
 	private void createNewChar() // createNewChar method start
 	{
 		String name = JOptionPane.showInputDialog("Enter the character's name:");
-		try
-		{
-			int attackBonus = Integer.parseInt(JOptionPane.showInputDialog("Enter the attack bonus:"));
-			int baseAttack = Integer.parseInt(JOptionPane.showInputDialog("Enter the base attack:"));
-			int confirmBonus = Integer.parseInt(JOptionPane.showInputDialog("Enter bonus to confirm critical attacks:"));
-			int damageDice = Integer.parseInt(JOptionPane.showInputDialog("Enter the damage di(c)e:"));
-			int damageBonus = Integer.parseInt(JOptionPane.showInputDialog("Enter the damage bonus:"));
-			int critOn = Integer.parseInt(JOptionPane.showInputDialog("Enter the lowest value in critical hit range:"));
-		} // end try
-		catch (NumberFormatException exception)
-		{
-			JOptionPane.showMessageDialog(null, exception);
-		} // end catch
+		int attackBonus = userAttackBonus();
+		int baseAttack = userBaseAttack();
+		int confirmBonus = userConfirmBonus();
+		int damageDice = userDamageDice();
+		int damageBonus = userDamageBonus();
+		int critOn = userCritOn();
+		toon = new Character(name, attackBonus, baseAttack, confirmBonus, damageDice, damageBonus,
+				critOn);
+		nameLabel.setText(toon.getName());
 	} // createNewChar method end
+	
+	// userAttackBonus method gets the attack bonus from user
+	private int userAttackBonus() // userAttackBonus method start
+	{
+		// local variables
+		boolean valid = false;
+		int ab = 0;
+		
+		while (!valid)
+		{
+			try
+			{
+				ab = Integer.parseInt(JOptionPane.showInputDialog("Enter the attack bonus:"));
+				valid = true;
+			} // end try
+			catch (NumberFormatException exception)
+			{
+				JOptionPane.showMessageDialog(null, "You must an integer. Try again.", "Not a Number", JOptionPane.ERROR_MESSAGE);
+			} // end catch
+		} // end while
+		
+		return ab;
+	} // userAttackBonus method end
+	
+	// userBaseAttack method gets the base attack from user
+	private int userBaseAttack() // userBaseAttack method start
+	{
+		// local variables
+		boolean valid = false;
+		int ba = 0;
+		
+		while (!valid)
+		{
+			try
+			{
+				ba = Integer.parseInt(JOptionPane.showInputDialog("Enter the base attack:"));
+				valid = true;
+			} // end try
+			catch (NumberFormatException exception)
+			{
+				JOptionPane.showMessageDialog(null, "You must an integer. Try again.", "Not a Number", JOptionPane.ERROR_MESSAGE);
+			} // end catch
+		} // end while
+		
+		return ba;
+	} // userBaseAttack method end
+	
+	// userConfirmBonus method gets the bonus to confirm critical attacks from user
+	private int userConfirmBonus() // userConfirmBonus method start
+	{
+		// local variables
+		boolean valid = false;
+		int cb = 0;
+		
+		while (!valid)
+		{
+			try
+			{
+				cb = Integer.parseInt(JOptionPane.showInputDialog("Enter bonus to confirm critical attacks:"));
+				valid = true;
+			} // end try
+			catch (NumberFormatException exception)
+			{
+				JOptionPane.showMessageDialog(null, "You must an integer. Try again.", "Not a Number", JOptionPane.ERROR_MESSAGE);
+			} // end catch
+		} // end while
+		
+		return cb;
+	} // userConfirmBonus method end
+	
+	// userDamageDice method gets the damage dice from user
+	private int userDamageDice() // userDamageDice method start
+	{
+		// local variables
+		boolean valid = false;
+		int dd = 0;
+		
+		while (!valid)
+		{
+			try
+			{
+				dd = Integer.parseInt(JOptionPane.showInputDialog("Enter the damage di(c)e:"));
+				valid = true;
+			} // end try
+			catch (NumberFormatException exception)
+			{
+				JOptionPane.showMessageDialog(null, "You must an integer. Try again.", "Not a Number", JOptionPane.ERROR_MESSAGE);
+			} // end catch
+		} // end while
+		
+		return dd;
+	} // userDamageDice method end
+	
+	// userDamageBonus method gets damage bonus from user
+	private int userDamageBonus() // userDamageBonus method start
+	{
+		// local variables
+		boolean valid = false;
+		int db = 0;
+				
+		while (!valid)
+		{
+			try
+			{
+				db = Integer.parseInt(JOptionPane.showInputDialog("Enter the damage bonus:"));
+				valid = true;
+			} // end try
+			catch (NumberFormatException exception)
+			{
+				JOptionPane.showMessageDialog(null, "You must an integer. Try again.", "Not a Number", JOptionPane.ERROR_MESSAGE);
+			} // end catch
+		} // end while
+		
+		return db;
+	} // userDamageBonus method end
+	
+	// userCritOn method gets the lowest value in critical range from user
+	private int userCritOn() // userCritOn method start
+	{
+		boolean valid = false;
+		int co = 0;
+		
+		while (!valid)
+		{
+			try
+			{
+				co = Integer.parseInt(JOptionPane.showInputDialog("Enter the lowest value in critical hit range:"));
+				valid = true;
+			} // end try
+			catch (NumberFormatException exception)
+			{
+				JOptionPane.showMessageDialog(null, "You must an integer. Try again.", "Not a Number", JOptionPane.ERROR_MESSAGE);
+			} // end catch
+		} // end while
+		
+		return co;
+	} // userCritOn method end
 	
 	private class RollButtonHandler implements ActionListener // RollButtonHandler class start
 	{
