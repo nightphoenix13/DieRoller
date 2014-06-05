@@ -16,8 +16,10 @@ public class TestDriver extends JFrame
 	private JTextArea rollOutput;
 	private JButton rollButton;
 	private JMenuBar menuBar;
-	private JMenu character;
-	private JMenuItem newChar;
+	private JMenu character,
+				  exit;
+	private JMenuItem newChar,
+					  quit;
 	
 	// test Character
 	private Character toon;
@@ -59,15 +61,21 @@ public class TestDriver extends JFrame
 		headerPanel = new JPanel();
 		menuBar = new JMenuBar();
 		character = new JMenu("Character");
+		exit = new JMenu("Exit");
 		newChar = new JMenuItem("New Character");
+		quit = new JMenuItem("Quit Program");
 		
 		// component properties
 		character.setMnemonic('C');
+		exit.setMnemonic('x');
 		newChar.setMnemonic('N');
+		quit.setMnemonic('Q');
 		
 		// adding components to panel
 		menuBar.add(character);
+		menuBar.add(exit);
 		character.add(newChar);
+		exit.add(quit);
 		
 		// event handlers
 		newChar.addActionListener(new ActionListener() // anonymous inner class
@@ -77,6 +85,13 @@ public class TestDriver extends JFrame
 			{
 				createNewChar();
 			}
+		});
+		quit.addActionListener(new ActionListener() // anonymous inner class
+		{
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				System.exit(0);
+			}	
 		});
 	} // buildHeaderPanel method end
 	
@@ -124,7 +139,7 @@ public class TestDriver extends JFrame
 		int critOn = userCritOn();
 		toon = new Character(name, attackBonus, baseAttack, confirmBonus, damageDice, damageBonus,
 				critOn);
-		nameLabel.setText(toon.getName());
+		updateCharPanel();
 	} // createNewChar method end
 	
 	// userAttackBonus method gets the attack bonus from user
@@ -263,6 +278,12 @@ public class TestDriver extends JFrame
 		
 		return co;
 	} // userCritOn method end
+	
+	// updateCharPanel method updates the charPanel
+	private void updateCharPanel() // updateCharPanel method start
+	{
+		nameLabel.setText(toon.getName());
+	} // updateCharPanel method end
 	
 	private class RollButtonHandler implements ActionListener // RollButtonHandler class start
 	{
