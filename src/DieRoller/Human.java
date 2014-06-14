@@ -11,7 +11,7 @@ public class Human extends Race
 	// constructor start
 	public Human()
 	{
-		super("Human", 0, 0, 0, 0, 0, 0, Size.MEDIUM);
+		super("Human", 0, 0, 0, 0, 0, 0, 30, Size.MEDIUM);
 		
 		// Allows user to choose ability to receive racial bonus
 		String a = (String) JOptionPane.showInputDialog(null, "Select ability to receive +2 bonus:",

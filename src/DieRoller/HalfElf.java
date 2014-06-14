@@ -9,7 +9,7 @@ public class HalfElf extends Race
 	// constructor start
 	public HalfElf()
 	{
-		super("Half-Elf", 0, 0, 0, 0, 0, 0, Size.MEDIUM);
+		super("Half-Elf", 0, 0, 0, 0, 0, 0, 30, Size.MEDIUM);
 		
 		// Allows user to choose ability to receive racial bonus
 		String a = (String) JOptionPane.showInputDialog(null, "Select ability to receive +2 bonus:",

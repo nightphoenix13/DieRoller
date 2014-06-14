@@ -12,17 +12,18 @@ public abstract class Race
 				con,
 				intel,
 				wis,
-				cha;
+				cha,
+				baseSpeed;
 	Size size;
 	
 	// constructor
-	public Race(String n, int s, int d, int co, int i, int w, int ch, Size size)
+	public Race(String n, int s, int d, int co, int i, int w, int ch, int bs, Size size)
 	{
-		setRace(n, s, d, co, i, w, ch, size);
+		setRace(n, s, d, co, i, w, ch, bs, size);
 	} // constructor end
 	
 	// class set method start
-	private void setRace(String n, int s, int d, int co, int i, int w, int ch, Size size)
+	private void setRace(String n, int s, int d, int co, int i, int w, int ch, int bs, Size size)
 	{
 		setName(n);
 		setStr(s);
@@ -31,6 +32,7 @@ public abstract class Race
 		setInt(i);
 		setWis(w);
 		setCha(ch);
+		setBaseSpeed(bs);
 		setSize(size);
 	} // class set method end
 	
@@ -69,6 +71,11 @@ public abstract class Race
 	{
 		cha = c;
 	} // cha set method end
+	
+	public void setBaseSpeed(int bs) // baseSpeed set method start
+	{
+		baseSpeed = bs;
+	} // baseSpeed set method end
 	
 	public void setSize(Size s) // size set method start
 	{
@@ -110,6 +117,11 @@ public abstract class Race
 	{
 		return cha;
 	} // cha get method end
+	
+	public int getBaseSpeed() // baseSpeed get method start
+	{
+		return baseSpeed;
+	} // baseSpeed get method end
 	
 	public Size getSize() // size get method start
 	{

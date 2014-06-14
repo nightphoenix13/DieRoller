@@ -5,6 +5,6 @@ public class Elf extends Race
 	// constructor start
 	public Elf()
 	{
-		super("Elf", 0, 2, -2, 2, 0, 0, Size.MEDIUM);
+		super("Elf", 0, 2, -2, 2, 0, 0, 30, Size.MEDIUM);
 	} // constructor end
 }
